@@ -1,139 +1,820 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chandra Alif - Video Editor & Creative Designer</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font & Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        
-        /* CSS Parallax Effects */
-        .parallax-bg-1 {
-            background-image: radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.25), rgba(3, 7, 18, 1));
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+      body { font-family: 'Plus Jakarta Sans', sans-serif; }
+      }
+
+      /* CSS Parallax Effects */
+      .parallax-bg-1 {
+        background-image: radial-gradient(
+          circle at 50% 50%,
+          rgba(147, 51, 234, 0.25),
+          rgba(3, 7, 18, 1)
+        );
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .parallax-bg-2 {
+        background-image: linear-gradient(
+          180deg,
+          rgba(3, 7, 18, 0.8) 0%,
+          rgba(88, 28, 135, 0.3) 50%,
+          rgba(3, 7, 18, 0.8) 100%
+        );
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      /* Glassmorphism Card Style */
+      .glass-card {
+        background: rgba(17, 24, 39, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .glass-card:hover {
+        border-color: rgba(168, 85, 247, 0.4);
+        transform: translateY(-4px);
+        transition: all 0.3s ease;
+      }
+			 /* Animasi Petir & Kilauan Latar Belakang */
+			 .lightning-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
         }
 
-        .parallax-bg-2 {
-            background-image: linear-gradient(180deg, rgba(3,7,18,0.8) 0%, rgba(88, 28, 135, 0.3) 50%, rgba(3,7,18,0.8) 100%);
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+        .lightning-bolt {
+            position: absolute;
+            background: rgba(168, 85, 247, 0.4);
+            filter: blur(40px);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
         }
 
-        /* Glassmorphism Card Style */
-        .glass-card {
-            background: rgba(17, 24, 39, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .glass-card:hover {
-            border-color: rgba(168, 85, 247, 0.4);
-            transform: translateY(-4px);
-            transition: all 0.3s ease;
+        /* Efek Kilauan Saat Scroll */
+        .scroll-sparkle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.15) 0%, transparent 60%);
+            opacity: ;
+            pointer-events: none;
+            z-index: 1;
+            transition: opacity 0.3s ease-out;
         }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-100 antialiased selection:bg-purple-500 selection:text-white">
+<body class="bg-gray-950 text-gray-100 antialiased selection:bg-purple-500 selection:text-white relative">
 
+    <!-- Efek Petir & Kilauan Background -->
+    <div class="lightning-container">
+        <div id="bolt1" class="lightning-bolt" style="width: 300px; height: 300px; top: 10%; left: 15%;"></div>
+        <div id="bolt2" class="lightning-bolt" style="width: 400px; height: 400px; top: 50%; right: 10%;"></div>
+        <div id="bolt3" class="lightning-bolt" style="width: 350px; height: 350px; bottom: 15%; left: 30%;"></div>
+    </div>
+    <div id="scrollGlow" class="scroll-sparkle"></div>
+    </style>
+  </head>
+  <body
+    class="bg-gray-950 text-gray-100 antialiased selection:bg-purple-500 selection:text-white"
+  >
     <!-- Navbar Sticky dengan Foto di Samping Nama -->
-    <nav class="fixed top-0 w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/80">
-        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
-            
-            <!-- Foto Bulat & Nama Chandra Alif -->
-            <a href="https://drive.google.com/uc?export=download&id=1sEsAyS16sto6oIHlfsPj18iAt1wgiNOH" target="_blank" title="Unduh CV Terbaru" class="flex items-center gap-3 group">
-                <div class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-white/80 shadow-md group-hover:border-purple-400 transition">
-                    <img src="https://lh3.googleusercontent.com/d/1SZNLDT7DlyNr403trqXjp-vsv67E5UEE" alt="Chandra Alif" class="w-full h-full object-cover object-top scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
-                </div>
-                <span class="text-lg font-extrabold tracking-wider bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent group-hover:opacity-90 transition">CHANDRA ALIF</span>
-            </a>
+    <nav
+      class="fixed top-0 w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/80"
+    >
+      <div
+        class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center"
+      >
+        <!-- Foto Bulat & Nama Chandra Alif -->
+        <a
+          href="https://drive.google.com/uc?export=download&id=1sEsAyS16sto6oIHlfsPj18iAt1wgiNOH"
+          target="_blank"
+          title="Unduh CV Terbaru"
+          class="flex items-center gap-3 group"
+        >
+          <div
+            class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-white/80 shadow-md group-hover:border-purple-400 transition"
+          >
+            <img
+              src="https://lh3.googleusercontent.com/d/1SZNLDT7DlyNr403trqXjp-vsv67E5UEE"
+              alt="Chandra Alif"
+              class="w-Full h-150 object-cover object-bottom scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"
+            ></div>
+          </div>
+          <span
+            class="text-lg font-extrabold tracking-wider bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent group-hover:opacity-90 transition"
+            >CHANDRA ALIF</span
+          >
+        </a>
 
-            <!-- Navigation Links -->
-            <div class="hidden md:flex space-x-8 text-sm font-semibold text-gray-300">
-                <a href="#tentang" class="hover:text-purple-400 transition">Tentang</a>
-                <a href="#keahlian" class="hover:text-purple-400 transition">Keahlian</a>
-                <a href="#pengalaman" class="hover:text-purple-400 transition">Pengalaman</a>
-                <a href="#portofolio" class="hover:text-purple-400 transition">Portofolio</a>
-                <a href="#kontak" class="hover:text-purple-400 transition">Kontak</a>
-            </div>
-
-            <!-- Tombol CTA Navigasi -->
-            <a href="https://wa.me/6285738093275" target="_blank" class="px-5 py-2 text-xs font-semibold rounded-full bg-purple-600 hover:bg-purple-700 text-white transition shadow-lg shadow-purple-600/30 flex items-center gap-2">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span>Hubungi Saya</span>
-            </a>
+        <!-- Navigation Links -->
+        <div
+          class="hidden md:flex space-x-6 text-sm font-semibold text-gray-300"
+        >
+          <a href="#tentang" class="hover:text-purple-400 transition"
+            >Tentang</a
+          >
+          <a href="#keahlian" class="hover:text-purple-400 transition"
+            >Keahlian</a
+          >
+          <a href="#pengalaman" class="hover:text-purple-400 transition"
+            >Pengalaman</a
+          >
+          <a href="#pendidikan" class="hover:text-purple-400 transition"
+            >Pendidikan</a
+          >
+          <a href="#portofolio" class="hover:text-purple-400 transition"
+            >Portofolio</a
+          >
+          <a href="#kontak" class="hover:text-purple-400 transition">Kontak</a>
         </div>
+
+        <!-- Tombol CTA Navigasi -->
+        <a
+          href="https://wa.me/6285738093275"
+          target="_blank"
+          class="px-5 py-2 text-xs font-semibold rounded-full bg-purple-600 hover:bg-purple-700 text-white transition shadow-lg shadow-purple-600/30 flex items-center gap-2"
+        >
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>Hubungi Saya</span>
+        </a>
+      </div>
     </nav>
 
     <!-- Hero Section dengan Background Parallax -->
-    <section class="min-h-screen flex items-center justify-center pt-24 pb-16 px-6 relative overflow-hidden parallax-bg-1">
-        <div class="max-w-4xl text-center z-10 flex flex-col items-center">
-            
-            <!-- Display Foto Bulat Utama -->
-            <div class="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-white/90 shadow-2xl shadow-purple-500/20 mb-6 group">
-                <img src="https://lh3.googleusercontent.com/d/1SZNLDT7DlyNr403trqXjp-vsv67E5UEE" alt="Chandra Alif" class="w-full h-full object-cover object-top scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
-            </div>
-
-            <span class="px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-300 bg-purple-950/60 border border-purple-500/30 rounded-full backdrop-blur-md">
-                Video Editor & Creative Designer
-            </span>
-
-            <h1 class="text-4xl md:text-7xl font-extrabold mt-6 mb-6 leading-tight tracking-tight">
-                Mengubah Ide Menjadi <br>
-                <span class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">Visual yang Memikat</span>
-            </h1>
-
-            <p class="text-gray-400 text-base md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-                Berpengalaman 4+ tahun dalam merancang konten visual kreatif, penyuntingan video profesional, animasi, serta produksi media sosial yang selaras dengan identitas merek.
-            </p>
-
-            <div class="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-md">
-                <a href="https://drive.google.com/drive/folders/1Sz8rbhoQGR4iKI2GvXmKp-kaeuEN39Gs" target="_blank" class="px-8 py-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-lg shadow-purple-600/40 transition hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-folder-open"></i>
-                    <span>Lihat Portofolio</span>
-                </a>
-                <a href="https://drive.google.com/uc?export=download&id=1sEsAyS16sto6oIHlfsPj18iAt1wgiNOH" target="_blank" class="px-8 py-4 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold border border-gray-700 transition hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-file-pdf text-pink-400"></i>
-                    <span>Unduh CV PDF</span>
-                </a>
-            </div>
+    <section
+      class="min-h-screen flex items-center justify-center pt-24 pb-16 px-6 relative overflow-hidden parallax-bg-1"
+    >
+      <div class="max-w-4xl text-center z-10 flex flex-col items-center">
+        <!-- Display Foto Bulat Utama -->
+        <div
+          class="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-white/90 shadow-2xl shadow-purple-500/20 mb-6 group"
+        >
+          <img
+            src="https://lh3.googleusercontent.com/d/1SZNLDT7DlyNr403trqXjp-vsv67E5UEE"
+            alt="Chandra Alif"
+            class="w-Full h-110 object-cover object-bottom scale-150">
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"
+          ></div>
         </div>
+
+        <span
+          class="px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-300 bg-purple-950/60 border border-purple-500/30 rounded-full backdrop-blur-md"
+        >
+          Kab. Banyuwangi, Jawa Timur, Indonesia[cite: 2]
+        </span>
+
+        <h1
+          class="text-4xl md:text-7xl font-extrabold mt-6 mb-6 leading-tight tracking-tight"
+        >
+          Mengubah Ide Menjadi <br />
+          <span
+            class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent"
+            >Visual yang Memikat</span
+          >
+        </h1>
+
+        <p
+          class="text-gray-400 text-base md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+        >
+          Video Editor dan Desainer Kreatif dengan pengalaman 4 tahun di bidang
+          penyuntingan video dan produksi konten visual[cite: 2].
+        </p>
+
+        <div
+          class="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-md"
+        >
+          <a
+            href="#portofolio"
+            class="px-8 py-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-lg shadow-purple-600/40 transition hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+          >
+            <i class="fa-solid fa-folder-open"></i>
+            <span>Lihat Portofolio</span>
+          </a>
+          <a
+            href="https://drive.google.com/uc?export=download&id=1sEsAyS16sto6oIHlfsPj18iAt1wgiNOH"
+            target="_blank"
+            class="px-8 py-4 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold border border-gray-700 transition hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+          >
+            <i class="fa-solid fa-file-pdf text-pink-400"></i>
+            <span>Unduh CV PDF</span>
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- Tentang Saya Section -->
-    <section id="tentang" class="py-24 px-6 relative border-t border-gray-800/80 bg-gray-950">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-extrabold mb-10 text-center">
-                <span class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Tentang Saya</span>
-            </h2>
-            <div class="glass-card p-8 md:p-10 rounded-3xl space-y-5 text-gray-300 leading-relaxed text-base md:text-lg">
-                <p>
-                    Saya adalah seorang <strong class="text-white">Video Editor dan Desainer Kreatif</strong> dengan pengalaman 4 tahun di bidang penyuntingan video dan produksi konten visual. Menguasai <strong class="text-purple-400">Adobe Premiere Pro</strong> dan <strong class="text-purple-400">Adobe After Effects</strong>, serta berpengalaman menangani berbagai klien untuk menghasilkan konten visual yang menarik, profesional, dan sesuai dengan brief proyek maupun kebutuhan identitas brand.
-                </p>
-                <p>
-                    Memiliki latar belakang unik di industri perhotelan dan kuliner (termasuk pengalaman sebagai Commis Chef di Sheraton Kuta Bali Resort & mengelola bisnis kuliner). Berbagai pengalaman tersebut mengembangkan kemampuan beradaptasi, kreativitas, pemecahan masalah, serta pemahaman mendalam terhadap kebutuhan pelanggan dan audiens.
-                </p>
-            </div>
+    <section
+      id="tentang"
+      class="py-24 px-6 relative border-t border-gray-800/80 bg-gray-950"
+    >
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-10 text-center">
+          <span
+            class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+            >Tentang Saya</span
+          >
+        </h2>
+        <div
+          class="glass-card p-8 md:p-10 rounded-3xl space-y-5 text-gray-300 leading-relaxed text-base md:text-lg"
+        >
+          <p>
+            Video Editor dan Desainer Kreatif dengan pengalaman 4 tahun di
+            bidang penyuntingan video dan produksi konten visual. Menguasai
+            <strong class="text-purple-400">Adobe Premiere Pro</strong> dan
+            <strong class="text-purple-400">Adobe After Effects</strong>, serta
+            berpengalaman menangani berbagai klien dan menghasilkan konten
+            visual yang menarik, profesional, serta sesuai dengan brief proyek
+            dan kebutuhan identitas merek[cite: 2].
+          </p>
+          <p>
+            Memiliki pengalaman sebelumnya di industri perhotelan dan kuliner,
+            termasuk magang selama 4 bulan sebagai Commis Chef di Sheraton Kuta
+            Bali Resort, pengalaman kerja selama 1 tahun di bagian dapur, serta
+            menjalankan beberapa bisnis kuliner. Berbagai pengalaman tersebut
+            telah mengembangkan kemampuan beradaptasi, kreativitas, pemecahan
+            masalah, serta pemahaman terhadap kebutuhan pelanggan[cite: 2].
+          </p>
         </div>
+      </div>
     </section>
 
-    <!-- Keahlian Utama Section -->
-    <section id="keahlian" class="py-24 px-6 parallax-bg-2 border-t border-b border-gray-800/80">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-extrabold mb-14 text-center">
-                <span class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Keahlian Utama</span>
-            </h2>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <!-- Keahlian Utama Section (Semua dari CV) -->
+    <section
+      id="keahlian"
+      class="py-24 px-6 parallax-bg-2 border-t border-b border-gray-800/80"
+    >
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-14 text-center">
+          <span
+            class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+            >Kemampuan & Keahlian</span
+          >
+        </h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="glass-card p-6 rounded-2xl text-center">
+            <i class="fa-solid fa-film text-4xl text-purple-400 mb-4"></i>
+            <h3 class="font-bold text-white text-lg">Adobe Premiere Pro</h3>
+          </div>
+          <div class="glass-card p-6 rounded-2xl text-center">
+            <i
+              class="fa-solid fa-wand-magic-sparkles text-4xl text-purple-400 mb-4"
+            ></i>
+            <h3 class="font-bold text-white text-lg">Adobe After Effects</h3>
+          </div>
+          <div class="glass-card p-6 rounded-2xl text-center">
+            <i class="fa-solid fa-cubes text-4xl text-purple-400 mb-4"></i>
+            <h3 class="font-bold text-white text-lg">2D & 3D Animation</h3>
+          </div>
+          <div class="glass-card p-6 rounded-2xl text-center">
+            <i
+              class="fa-solid fa-camera-retro text-4xl text-purple-400 mb-4"
+            ></i>
+            <h3 class="font-bold text-white text-lg">Photo Retouching</h3>
+          </div>
+        </div>
+
+        <!-- Daftar Lengkap Sesuai CV -->
+        <div class="mt-10 flex flex-wrap justify-center gap-3">
+          <span
+            class="px-4 py-2 bg-gray-900/80 border border-gray-800 rounded-xl text-sm font-medium text-gray-300"
+            >Image Photo Retouching</span
+          >
+          <span
+            class="px-4 py-2 bg-gray-900/80 border border-gray-800 rounded-xl text-sm font-medium text-gray-300"
+            >Teamwork</span
+          >
+          <span
+            class="px-4 py-2 bg-gray-900/80 border border-gray-800 rounded-xl text-sm font-medium text-gray-300"
+            >Animation Design</span
+          >
+          <span
+            class="px-4 py-2 bg-gray-900/80 border border-gray-800 rounded-xl text-sm font-medium text-gray-300"
+            >Cook</span
+          >
+          <span
+            class="px-4 py-2 bg-gray-900/80 border border-gray-800 rounded-xl text-sm font-medium text-gray-300"
+            >Photo Editing</span
+          >
+          <span
+            class="px-4 py-2 bg-gray-900/80 border border-gray-800 rounded-xl text-sm font-medium text-gray-300"
+            >3D Animation</span
+          >
+          <span
+            class="px-4 py-2 bg-gray-900/80 border border-gray-800 rounded-xl text-sm font-medium text-gray-300"
+            >Animation</span
+          >
+          <span
+            class="px-4 py-2 bg-gray-900/80 border border-gray-800 rounded-xl text-sm font-medium text-gray-300"
+            >2D Animation</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Pengalaman Kerja Section (Lengkap Sesuai CV) -->
+    <section id="pengalaman" class="py-24 px-6 bg-gray-950">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-14 text-center">
+          <span
+            class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+            >Pengalaman Kerja</span
+          >
+        </h2>
+
+        <div class="space-y-8">
+          <!-- PT Sekolah Trading -->
+          <div class="glass-card p-8 md:p-10 rounded-3xl relative">
+            <div class="flex flex-col md:flex-row justify-between mb-6">
+              <div>
+                <h3 class="text-2xl font-bold text-white">
+                  Editor Video & Film
+                </h3>
+                [cite: 2]
+                <p class="text-purple-400 font-semibold text-lg mt-1">
+                  PT SEKOLAH TRADING
+                </p>
+                [cite: 2]
+              </div>
+              <span
+                class="text-xs font-semibold text-purple-300 bg-purple-950/80 border border-purple-500/30 px-4 py-2 rounded-full h-fit w-fit mt-2 md:mt-0"
+                >Jun 2022 - Sekarang</span
+              >[cite: 2]
+            </div>
+            <ul
+              class="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-300 text-sm md:text-base leading-relaxed"
+            >
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Mengedit video untuk kebutuhan konten media sosial seperti
+                  Instagram Reels, TikTok, dan platform digital lainnya[cite:
+                  2].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Membuat konsep visual, hook, dan opening video yang menarik
+                  untuk meningkatkan perhatian audiens[cite: 2].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Menyusun caption dan ide konten yang sesuai dengan karakter
+                  brand, target audiens, serta tujuan pemasaran[cite: 2].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Mengembangkan konten dengan gaya visual yang profesional,
+                  premium, dan konsisten dengan identitas brand[cite: 2].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Melakukan proses editing mulai dari pemilihan footage,
+                  cutting, penyusunan alur cerita, penambahan teks, transisi,
+                  musik, hingga finalisasi video[cite: 2].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Menyesuaikan format dan durasi konten berdasarkan kebutuhan
+                  platform media sosial[cite: 2].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Memastikan kualitas visual, audio, dan hasil akhir konten
+                  sesuai dengan standar yang ditetapkan[cite: 2].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Mendukung kebutuhan promosi digital dan branding melalui
+                  konten kreatif yang informatif, menarik, dan relevan[cite:
+                  2].</span
+                >
+              </li>
+              <li class="flex items-start gap-2 md:col-span-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Mengelola revisi serta memastikan konten selesai sesuai
+                  deadline dan kebutuhan proyek[cite: 2].</span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Forex IMF / Quickpro -->
+          <div class="glass-card p-8 md:p-10 rounded-3xl relative">
+            <div class="flex flex-col md:flex-row justify-between mb-6">
+              <div>
+                <h3 class="text-2xl font-bold text-white">
+                  Editor Video & Film
+                </h3>
+                [cite: 3]
+                <p class="text-purple-400 font-semibold text-lg mt-1">
+                  Forex IMF / Quickpro
+                </p>
+                [cite: 3]
+              </div>
+              <span
+                class="text-xs font-semibold text-purple-300 bg-purple-950/80 border border-purple-500/30 px-4 py-2 rounded-full h-fit w-fit mt-2 md:mt-0"
+                >Apr 2024 - Feb 2026</span
+              >[cite: 3]
+            </div>
+            <ul
+              class="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-300 text-sm md:text-base leading-relaxed"
+            >
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Mengedit dan memproduksi konten video untuk ForexIMF sesuai
+                  dengan kebutuhan brand, brief, dan tujuan pemasaran[cite:
+                  3].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Mengembangkan dan menyempurnakan script video berdasarkan
+                  brief, kebutuhan audiens, dan arahan konten[cite: 3].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Mengelola dan mendukung kebutuhan konten media sosial,
+                  termasuk perencanaan dan pengembangan konten[cite: 3].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Mengkoordinasikan alur kerja editing antara tim internal dan
+                  pihak ForexIMF untuk memastikan proyek berjalan sesuai target
+                  dan kebutuhan klien[cite: 3].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Memimpin dan mengawasi tim editor dalam proses editing,
+                  revisi, quality control, dan menjaga konsistensi kualitas
+                  video[cite: 3].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Menjadi penghubung utama antara perusahaan dan ForexIMF dalam
+                  menyampaikan brief, feedback, revisi, serta kebutuhan
+                  produksi[cite: 3].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Menerjemahkan kebutuhan dan arahan klien menjadi tugas yang
+                  jelas bagi tim editing[cite: 3].</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Melakukan pengecekan akhir terhadap hasil video sebelum
+                  diserahkan kepada klien[cite: 3].</span
+                >
+              </li>
+              <li class="flex items-start gap-2 md:col-span-2">
+                <i
+                  class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                ></i
+                ><span
+                  >Membantu menyelesaikan kendala dalam proses produksi serta
+                  meningkatkan alur kerja tim editing[cite: 3].</span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Pengalaman Kuliner / Memasak (Dijadikan Satu Kolom) -->
+          <div class="glass-card p-8 md:p-10 rounded-3xl relative">
+            <h3 class="text-2xl font-bold text-white mb-6">
+              Pengalaman Kuliner & Hospitality (Koki)
+            </h3>
+            [cite: 3]
+
+            <div class="space-y-6">
+              <!-- Eng Coco Cafe -->
+              <div>
+                <div class="flex flex-col md:flex-row justify-between mb-2">
+                  <p class="text-purple-400 font-semibold text-lg">
+                    Eng Coco Cafe
+                  </p>
+                  [cite: 3]
+                  <span
+                    class="text-xs font-semibold text-gray-400 bg-gray-900 border border-gray-800 px-3 py-1 rounded-full h-fit w-fit"
+                    >May 2021 - Jun 2022</span
+                  >[cite: 3]
+                </div>
+                <ul
+                  class="space-y-1.5 text-gray-300 text-sm md:text-base leading-relaxed"
+                >
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                    ></i
+                    ><span>Memasak[cite: 3].</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                    ></i
+                    ><span>Mempersiapkan hal yang perlu dimasak[cite: 3].</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                    ></i
+                    ><span
+                      >Mempersiapkan hal-hal yang perlu di-restock dan diolah
+                      untuk hari selanjutnya[cite: 3].</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <hr class="border-gray-800" />
+
+              <!-- Sheraton Kuta Bali Resort -->
+              <div>
+                <div class="flex flex-col md:flex-row justify-between mb-2">
+                  <p class="text-purple-400 font-semibold text-lg">
+                    Sheraton Kuta Bali Resort
+                  </p>
+                  [cite: 3]
+                  <span
+                    class="text-xs font-semibold text-gray-400 bg-gray-900 border border-gray-800 px-3 py-1 rounded-full h-fit w-fit"
+                    >Sep 2021 - Feb 2022</span
+                  >[cite: 3]
+                </div>
+                <ul
+                  class="space-y-1.5 text-gray-300 text-sm md:text-base leading-relaxed"
+                >
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                    ></i
+                    ><span
+                      >Membantu chef untuk mempercepat pekerjaan[cite: 3].</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                    ></i
+                    ><span>Service di banquet[cite: 3].</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-circle-check text-purple-400 mt-1 text-xs"
+                    ></i
+                    ><span
+                      >Merapikan banquet sehingga terlihat indah[cite: 3].</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pendidikan Section -->
+    <section
+      id="pendidikan"
+      class="py-24 px-6 parallax-bg-1 border-t border-gray-800/80"
+    >
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-14 text-center">
+          <span
+            class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+            >Pendidikan</span
+          >
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="glass-card p-8 rounded-3xl">
+            <h3 class="text-xl font-bold text-white">MEDITERRANEAN Bali</h3>
+            [cite: 4]
+            <p class="text-purple-400 font-semibold mt-1">Food Production</p>
+            [cite: 4]
+            <span class="text-xs text-gray-400 mt-3 inline-block"
+              >Sep 2019 - Feb 2021</span
+            >[cite: 4]
+          </div>
+          <div class="glass-card p-8 rounded-3xl">
+            <h3 class="text-xl font-bold text-white">
+              SMA Negeri 1 Pesanggaran
+            </h3>
+            [cite: 4]
+            <p class="text-purple-400 font-semibold mt-1">Pengetahuan Alam</p>
+            [cite: 4]
+            <span class="text-xs text-gray-400 mt-3 inline-block"
+              >Apr 2015 - May 2018</span
+            >[cite: 4]
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galeri Portofolio Drive -->
+    <section
+      id="portofolio"
+      class="py-24 px-6 bg-gray-950 border-t border-gray-800/80 text-center"
+    >
+      <div
+        class="max-w-3xl mx-auto glass-card p-10 md:p-14 rounded-3xl border border-purple-500/30"
+      >
+        <i class="fa-solid fa-folder-open text-6xl text-purple-400 mb-6"></i>
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4">
+          Galeri & Showreel Video
+        </h2>
+        <p class="text-gray-300 text-base md:text-lg mb-8 leading-relaxed">
+          Jelajahi kumpulan hasil editan video, animasi, serta proyek kreatif
+          yang telah saya kerjakan melalui Google Drive resmi berikut.
+        </p>
+        <a
+          href="https://chndralif0-debug.github.io/Portofolio/"
+          target="_blank"
+          class="inline-flex items-center gap-3 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-2xl shadow-xl shadow-purple-600/40 transition hover:scale-105 active:scale-95"
+        >
+          <span>Buka Link Portofolio</span>[cite: 4]
+          <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Kontak & CTA Section -->
+    <section
+      id="kontak"
+      class="py-24 px-6 bg-gray-950 border-t border-gray-800/80"
+    >
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4">
+          <span
+            class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+            >Mari Bekerja Sama</span
+          >
+        </h2>
+        <p class="text-gray-400 text-base md:text-lg mb-12">
+          Apakah Anda membutuhkan Video Editor untuk meningkatkan kualitas
+          konten brand Anda? Hubungi saya langsung atau unduh CV lengkap saya.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <!-- CTA WhatsApp -->
+          <a
+            href="https://wa.me/6285738093275"
+            target="_blank"
+            class="glass-card flex flex-col items-center p-8 rounded-2xl text-center group hover:border-green-500/50 transition"
+          >
+            <i
+              class="fa-brands fa-whatsapp text-4xl text-green-400 mb-4 group-hover:scale-110 transition"
+            ></i>
+            <span
+              class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1"
+              >WhatsApp</span
+            >
+            <span class="font-bold text-white text-base">+62 857 3809 3275</span
+            >[cite: 2]
+          </a>
+
+          <!-- CTA Email -->
+          <a
+            href="mailto:chndralif0@gmail.com"
+            class="glass-card flex flex-col items-center p-8 rounded-2xl text-center group hover:border-purple-500/50 transition"
+          >
+            <i
+              class="fa-solid fa-envelope text-4xl text-purple-400 mb-4 group-hover:scale-110 transition"
+            ></i>
+            <span
+              class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1"
+              >Email</span
+            >
+            <span class="font-bold text-white text-sm break-all"
+              >chndralif0@gmail.com</span
+            >[cite: 2]
+          </a>
+
+          <!-- Download CV PDF -->
+          <a
+            href="https://drive.google.com/uc?export=download&id=1sEsAyS16sto6oIHlfsPj18iAt1wgiNOH"
+            target="_blank"
+            class="glass-card flex flex-col items-center p-8 rounded-2xl text-center group hover:border-pink-500/50 transition"
+          >
+            <i
+              class="fa-solid fa-file-pdf text-4xl text-pink-400 mb-4 group-hover:scale-110 transition"
+            ></i>
+            <span
+              class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1"
+              >Curriculum Vitae</span
+            >
+            <span class="font-bold text-white text-base">Unduh CV PDF</span>
+          </a>
+        </div>
+
+        <p class="text-xs text-gray-500">
+          Kab. Banyuwangi, Jawa Timur, Indonesia
+        </p>
+        [cite: 2]
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="py-8 text-center text-xs text-gray-600 border-t border-gray-900 bg-gray-950"
+    >
+      &copy; 2026 Chandra Alif. All Rights Reserved.
+    </footer>
+  </body>
+</html>
