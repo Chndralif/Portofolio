@@ -1,51 +1,87 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chandra Alif - Video Editor & Creative Designer</title>
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font & Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .parallax-hero {
+        
+        /* CSS Parallax Effects */
+        .parallax-bg-1 {
             background-image: radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.25), rgba(3, 7, 18, 1));
             background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
         }
+
+        .parallax-bg-2 {
+            background-image: linear-gradient(180deg, rgba(3,7,18,0.8) 0%, rgba(88, 28, 135, 0.3) 50%, rgba(3,7,18,0.8) 100%);
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(168, 85, 247, 0.4);
+            transform: translateY(-4px);
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-100 min-h-screen flex flex-col justify-between">
+<body class="bg-gray-950 text-gray-100 antialiased selection:bg-purple-500 selection:text-white">
 
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800">
+    <!-- Navbar Sticky dengan Foto di Samping Nama -->
+    <nav class="fixed top-0 w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/80">
         <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
             
-            <!-- Foto Bulat & Nama (Mengarah langsung ke Download CV Baru) -->
-            <a href="https://drive.google.com/uc?export=download&id=11yXIK3cZ_dJff8I7JkoJtW8WnsMs4kAu" target="_blank" class="flex items-center gap-3 group">
+            <!-- Foto Bulat & Nama Chandra Alif -->
+            <a href="https://drive.google.com/uc?export=download&id=1sEsAyS16sto6oIHlfsPj18iAt1wgiNOH" target="_blank" title="Unduh CV Terbaru" class="flex items-center gap-3 group">
                 <div class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-white/80 shadow-md group-hover:border-purple-400 transition">
                     <img src="https://lh3.googleusercontent.com/d/1SZNLDT7DlyNr403trqXjp-vsv67E5UEE" alt="Chandra Alif" class="w-full h-full object-cover object-top scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
                 </div>
-                <span class="text-lg font-extrabold tracking-wider bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">CHANDRA ALIF</span>
+                <span class="text-lg font-extrabold tracking-wider bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent group-hover:opacity-90 transition">CHANDRA ALIF</span>
             </a>
 
-            <!-- Tombol WA Navbar -->
-            <a href="https://wa.me/6285738093275" target="_blank" class="px-5 py-2 text-xs font-semibold rounded-full bg-purple-600 hover:bg-purple-700 text-white transition shadow-lg shadow-purple-600/30">
-                Hubungi Saya
+            <!-- Navigation Links -->
+            <div class="hidden md:flex space-x-8 text-sm font-semibold text-gray-300">
+                <a href="#tentang" class="hover:text-purple-400 transition">Tentang</a>
+                <a href="#keahlian" class="hover:text-purple-400 transition">Keahlian</a>
+                <a href="#pengalaman" class="hover:text-purple-400 transition">Pengalaman</a>
+                <a href="#portofolio" class="hover:text-purple-400 transition">Portofolio</a>
+                <a href="#kontak" class="hover:text-purple-400 transition">Kontak</a>
+            </div>
+
+            <!-- Tombol CTA Navigasi -->
+            <a href="https://wa.me/6285738093275" target="_blank" class="px-5 py-2 text-xs font-semibold rounded-full bg-purple-600 hover:bg-purple-700 text-white transition shadow-lg shadow-purple-600/30 flex items-center gap-2">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>Hubungi Saya</span>
             </a>
         </div>
     </nav>
 
-    <!-- Hero Section dengan Parallax -->
-    <main class="flex-1 flex items-center justify-center pt-28 pb-16 px-6 parallax-hero">
-        <div class="max-w-4xl text-center flex flex-col items-center">
+    <!-- Hero Section dengan Background Parallax -->
+    <section class="min-h-screen flex items-center justify-center pt-24 pb-16 px-6 relative overflow-hidden parallax-bg-1">
+        <div class="max-w-4xl text-center z-10 flex flex-col items-center">
             
-            <!-- Foto Bulat Besar dengan Efek Fade Bawah -->
-            <div class="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-white/90 shadow-2xl shadow-purple-500/20 mb-6">
+            <!-- Display Foto Bulat Utama -->
+            <div class="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-white/90 shadow-2xl shadow-purple-500/20 mb-6 group">
                 <img src="https://lh3.googleusercontent.com/d/1SZNLDT7DlyNr403trqXjp-vsv67E5UEE" alt="Chandra Alif" class="w-full h-full object-cover object-top scale-110">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
             </div>
@@ -53,31 +89,51 @@
             <span class="px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-300 bg-purple-950/60 border border-purple-500/30 rounded-full backdrop-blur-md">
                 Video Editor & Creative Designer
             </span>
-            
-            <h1 class="text-4xl md:text-6xl font-extrabold mt-6 mb-6 leading-tight tracking-tight">
+
+            <h1 class="text-4xl md:text-7xl font-extrabold mt-6 mb-6 leading-tight tracking-tight">
                 Mengubah Ide Menjadi <br>
                 <span class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">Visual yang Memikat</span>
             </h1>
-            
-            <p class="text-gray-400 text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-                Berpengalaman lebih dari 4 tahun dalam merancang konten visual kreatif, penyuntingan video profesional, dan produksi media sosial yang selaras dengan identitas brand[span_1](start_span)[span_1](end_span).
+
+            <p class="text-gray-400 text-base md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+                Berpengalaman 4+ tahun dalam merancang konten visual kreatif, penyuntingan video profesional, animasi, serta produksi media sosial yang selaras dengan identitas merek.
             </p>
-            
+
             <div class="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-md">
-                <a href="https://drive.google.com/drive/folders/1Sz8rbhoQGR4iKI2GvXmKp-kaeuEN39Gs" target="_blank" class="px-8 py-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-lg shadow-purple-600/40 transition hover:scale-105">
-                    Lihat Portofolio
+                <a href="https://drive.google.com/drive/folders/1Sz8rbhoQGR4iKI2GvXmKp-kaeuEN39Gs" target="_blank" class="px-8 py-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-lg shadow-purple-600/40 transition hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>Lihat Portofolio</span>
                 </a>
-                <a href="https://wa.me/6285738093275" target="_blank" class="px-8 py-4 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold border border-gray-700 transition hover:scale-105">
-                    Kontak WhatsApp
+                <a href="https://drive.google.com/uc?export=download&id=1sEsAyS16sto6oIHlfsPj18iAt1wgiNOH" target="_blank" class="px-8 py-4 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold border border-gray-700 transition hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-file-pdf text-pink-400"></i>
+                    <span>Unduh CV PDF</span>
                 </a>
             </div>
         </div>
-    </main>
+    </section>
 
-    <!-- Footer -->
-    <footer class="py-6 text-center text-xs text-gray-600 border-t border-gray-900 bg-gray-950">
-        &copy; 2026 Chandra Alif. All Rights Reserved.
-    </footer>
+    <!-- Tentang Saya Section -->
+    <section id="tentang" class="py-24 px-6 relative border-t border-gray-800/80 bg-gray-950">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-10 text-center">
+                <span class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Tentang Saya</span>
+            </h2>
+            <div class="glass-card p-8 md:p-10 rounded-3xl space-y-5 text-gray-300 leading-relaxed text-base md:text-lg">
+                <p>
+                    Saya adalah seorang <strong class="text-white">Video Editor dan Desainer Kreatif</strong> dengan pengalaman 4 tahun di bidang penyuntingan video dan produksi konten visual. Menguasai <strong class="text-purple-400">Adobe Premiere Pro</strong> dan <strong class="text-purple-400">Adobe After Effects</strong>, serta berpengalaman menangani berbagai klien untuk menghasilkan konten visual yang menarik, profesional, dan sesuai dengan brief proyek maupun kebutuhan identitas brand.
+                </p>
+                <p>
+                    Memiliki latar belakang unik di industri perhotelan dan kuliner (termasuk pengalaman sebagai Commis Chef di Sheraton Kuta Bali Resort & mengelola bisnis kuliner). Berbagai pengalaman tersebut mengembangkan kemampuan beradaptasi, kreativitas, pemecahan masalah, serta pemahaman mendalam terhadap kebutuhan pelanggan dan audiens.
+                </p>
+            </div>
+        </div>
+    </section>
 
-</body>
-</html>
+    <!-- Keahlian Utama Section -->
+    <section id="keahlian" class="py-24 px-6 parallax-bg-2 border-t border-b border-gray-800/80">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-14 text-center">
+                <span class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Keahlian Utama</span>
+            </h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
